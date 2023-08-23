@@ -4,6 +4,7 @@ import { collection, getDocs } from "firebase/firestore";
 import Heart from '../../assets/Heart';
 import './Post.css';
 import { FirebaseContext } from '../../store/firebaseContext';
+import SinglePost from './singlePost';
 
 function Posts() {
   const { db } = useContext(FirebaseContext)
@@ -31,24 +32,9 @@ function Posts() {
           <span>View more</span>
         </div>
         <div className="cards">
-          <div
-            className="card"
-          >
-            <div className="favorite">
-              <Heart></Heart>
-            </div>
-            <div className="image">
-              <img src="../../../Images/R15V3.jpg" alt="" />
-            </div>
-            <div className="content">
-              <p className="rate">&#x20B9; 250000</p>
-              <span className="kilometer">Two Wheeler</span>
-              <p className="name"> YAMAHA R15V3</p>
-            </div>
-            <div className="date">
-              <span>Tue May 04 2021</span>
-            </div>
-          </div>
+          {products.map((products)=> (
+            < SinglePost product = { products } /> 
+          ))}
         </div>
       </div>
       <div className="recommendations">

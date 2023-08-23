@@ -12,7 +12,7 @@ import { useNavigate, Link, Route, Routes } from 'react-router-dom';
 import Create from '../Create/Create';
 
 function Header() {
-  
+
   const { Firebaseapp } = useContext(FirebaseContext)
   const auth = getAuth(Firebaseapp)
   const { user } = useContext(AuthContext)
@@ -53,13 +53,13 @@ function Header() {
           navigate('/login')
          }}>Logout</span>}
          <Link to={'create'}>
-        <div className="sellMenu">
+        { user && <div className="sellMenu">
           <SellButton></SellButton>
           <div className="sellMenuContent">
             <SellButtonPlus></SellButtonPlus>
             <span>SELL</span>
           </div>
-        </div>
+        </div>}
         </Link>
         <Routes>
         <Route path={'/create'} element={<Create/>}/>

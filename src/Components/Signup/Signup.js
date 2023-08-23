@@ -1,9 +1,14 @@
-import React, { useState, useContext } from 'react';
-import { FirebaseContext } from '../../store/firebaseContext';
-import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import {collection, addDoc} from 'firebase/firestore'
-import Logo from '../../olx-logo.png';
+import React, { useContext, useState } from 'react';
+import Login from '../Login/Login';
+
+import Logo from '../../olx-logo.png'; 
 import './Signup.css';
+import { FirebaseContext } from '../../store/firebaseContext'; 
+import { createUserWithEmailAndPassword, getAuth,updateProfile } from "firebase/auth";
+import {collection, addDoc} from 'firebase/firestore'
+import { Link, useNavigate, BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+
 
 
 export default function Signup() {
@@ -13,28 +18,35 @@ export default function Signup() {
   const [ password, setPassword ] = useState('');
   const [ mobile, setMobile ] = useState('')
 
-  const { firebase, db,   } = useContext(FirebaseContext)
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    try{
+  const navigate=useNavigate()
+  const {Firebaseapp,db}=useContext(FirebaseContext)
 
-      const auth = getAuth(firebase)
-      const  userCredential = await createUserWithEmailAndPassword(auth, email, password)
-      const user = userCredential.user
-      await updateProfile(user,{ displayName : username })
-      const usersCollection = collection(db, 'users');
-      await addDoc(usersCollection(db,'users'),{
-        id : user.uid,
-        username : username,
-        email : email,
-        password : password,
-        mobile : mobile
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  
+    const auth = getAuth(Firebaseapp);
+  
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed up
+        const user = userCredential.user;
+        updateProfile(user, {displayName: username});
+  
+        addDoc(collection(db, "users"), {
+          id: userCredential.user.uid,
+          email,
+          password,
+          mobile,
+          username,
+        });
+  
+        navigate("/login");
       })
-    }catch(error) {
-      console.log(error.message);
-    }
-  }
-
+      .catch((err) => {
+        console.log(err.code);
+        alert(err.code);
+      });
+  };
   return (
     <div>
       <div className="signupParentDiv">
@@ -87,7 +99,15 @@ export default function Signup() {
           <br />
           <button>Signup</button>
         </form>
-        <a>Login</a>
+      
+
+        <Link to={'/login'}>
+          <a>Login</a>
+        </Link>
+          <Routes>
+            <Route path={'/login'}  element={<Login/>}/>
+          </Routes>
+     
       </div>
     </div>
   );

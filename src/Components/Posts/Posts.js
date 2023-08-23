@@ -1,9 +1,27 @@
-import React from 'react';
+import React,{ useEffect, useContext, useState } from 'react';
+import { collection, getDocs } from "firebase/firestore";
 
 import Heart from '../../assets/Heart';
 import './Post.css';
+import { FirebaseContext } from '../../store/firebaseContext';
 
 function Posts() {
+  const { db } = useContext(FirebaseContext)
+  const[products,setProducts]=useState([])
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const querySnapshot = await getDocs(collection(db, "products"))
+      const allProducts = querySnapshot.docs.map((product) => {
+        return {
+          ...product.data(),
+          id: product.id
+        }
+      })
+      setProducts(allProducts)
+    } 
+    fetchProducts()
+  },[])
 
   return (
     <div className="postParentDiv">

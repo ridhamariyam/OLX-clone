@@ -1,4 +1,5 @@
-import React from 'react';
+import React,{ useContext } from 'react';
+import { getAuth, signOut } from 'firebase/auth';
 
 import './Header.css';
 import OlxLogo from '../../assets/OlxLogo';
@@ -6,7 +7,16 @@ import Search from '../../assets/Search';
 import Arrow from '../../assets/Arrow';
 import SellButton from '../../assets/SellButton';
 import SellButtonPlus from '../../assets/SellButtonPlus';
+import { AuthContext, FirebaseContext } from '../../store/firebaseContext';
+import { useNavigate, Link, Route, Routes } from 'react-router-dom';
+import Create from '../Create/Create';
+
 function Header() {
+  
+  const { Firebaseapp } = useContext(FirebaseContext)
+  const auth = getAuth(Firebaseapp)
+  const { user } = useContext(AuthContext)
+  const navigate = useNavigate()
   return (
     <div className="headerParentDiv">
       <div className="headerChildDiv">
@@ -34,10 +44,15 @@ function Header() {
           <Arrow></Arrow>
         </div>
         <div className="loginPage">
-          <span>Login</span>
+          <span>{user ? user.displayName : 'Login'}</span>
           <hr />
         </div>
 
+         { user && <span onClick={async () => {
+          await signOut(auth)
+          navigate('/login')
+         }}>Logout</span>}
+         <Link to={'create'}>
         <div className="sellMenu">
           <SellButton></SellButton>
           <div className="sellMenuContent">
@@ -45,6 +60,10 @@ function Header() {
             <span>SELL</span>
           </div>
         </div>
+        </Link>
+        <Routes>
+        <Route path={'/create'} element={<Create/>}/>
+        </Routes>
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ import './Signup.css';
 import { FirebaseContext } from '../../store/firebaseContext'; 
 import { createUserWithEmailAndPassword, getAuth,updateProfile } from "firebase/auth";
 import {collection, addDoc} from 'firebase/firestore'
-import { Link, useNavigate, BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Link, useNavigate, Routes, Route } from "react-router-dom";
 
 
 

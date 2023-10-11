@@ -25,7 +25,8 @@ function Header() {
         </div>
         <div className="placeSearch">
           <Search></Search>
-          <input type="text" />
+          <input type="text"
+          placeholder="Search specific product...          " />
           <Arrow></Arrow>
         </div>
         <div className="productSearch">
@@ -36,17 +37,20 @@ function Header() {
             />
           </div>
           <div className="searchAction">
-            <Search color="#ffffff"></Search>
+            <Search color="#ffffff" placeholder="Find car,mobile phone and more..."></Search>
           </div>
         </div>
         <div className="language">
           <span> ENGLISH </span>
           <Arrow></Arrow>
         </div>
-        <div className="loginPage">
-          <span>{user ? user.displayName : 'Login'}</span>
-          <hr />
-        </div>
+        <Link to="/login">
+          <div className="loginPage">
+            <span>{user ? user.displayName : 'Login'}</span>
+            <hr />
+          </div>
+        </Link>
+
 
          { user && <span onClick={async () => {
           await signOut(auth)

@@ -1,28 +1,29 @@
-import React,{ useEffect, useContext, useState } from 'react';
-import { collection, getDocs } from "firebase/firestore";
+// olx-react-clone/src/components/posts/Posts.js
+
+import React, { useEffect, useContext, useState } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
 
 import Heart from '../../assets/Heart';
 import './Post.css';
 import { FirebaseContext } from '../../store/firebaseContext';
 import SinglePost from './singlePost';
 
+
 function Posts() {
-  const { db } = useContext(FirebaseContext)
-  const[products,setProducts]=useState([])
+  const { db } = useContext(FirebaseContext);
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const querySnapshot = await getDocs(collection(db, "products"))
-      const allProducts = querySnapshot.docs.map((product) => {
-        return {
-          ...product.data(),
-          id: product.id
-        }
-      })
-      setProducts(allProducts)
-    } 
-    fetchProducts()
-  },[])
+      const querySnapshot = await getDocs(collection(db, 'products'));
+      const allProducts = querySnapshot.docs.map((product) => ({
+        ...product.data(),
+        id: product.id,
+      }));
+      setProducts(allProducts);
+    };
+    fetchProducts();
+  }, []);
 
   return (
     <div className="postParentDiv">
@@ -32,8 +33,8 @@ function Posts() {
           <span>View more</span>
         </div>
         <div className="cards">
-          {products.map((products)=> (
-            < SinglePost product = { products } /> 
+          {products.map((product) => (
+            <SinglePost key={product.id} product={product} />
           ))}
         </div>
       </div>
@@ -42,6 +43,8 @@ function Posts() {
           <span>Fresh recommendations</span>
         </div>
         <div className="cards">
+          
+          {/* Existing hard-coded card */}
           <div className="card">
             <div className="favorite">
               <Heart></Heart>
@@ -53,9 +56,6 @@ function Posts() {
               <p className="rate">&#x20B9; 250000</p>
               <span className="kilometer">Two Wheeler</span>
               <p className="name"> YAMAHA R15V3</p>
-            </div>
-            <div className="date">
-              <span>10/5/2021</span>
             </div>
           </div>
         </div>

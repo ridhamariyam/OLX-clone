@@ -1,9 +1,40 @@
+# OLX Clone App
+
+This project is a React based web application that emulates the functionality of the popular online classifieds platform OLX. The app uses Firebase as the database to store and retrieve data.
+
+## Features
+
+- **User Authentication** - Register, log in, and manage user profiles.
+
+- **Product Listings** - Create, edit, and delete ads for products.
+
+- **Product Search and Filter** - Search for specific products and filter listings based on various criteria.
+
+- **Real-time Updates** - Leveraging Firebase, the app provides real-time updates on product listings and user interactions.
+
+- **User Interactions** - Users can interact with listings, express interest, and contact sellers.
+
+
+## Technologies Used
+
+- **React** - JavaScript library for building user interfaces.
+
+- **Firebase** - Real-time database for storing and retrieving data.
+
+Feel free to explore the OLX Clone App , To Run follow below given instructions which is offcial documentation from React.
+
+
+
+
+## Installation
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
+Clone the repository and switch to directory.
 In the project directory, you can run:
 
 ### `npm start`

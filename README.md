@@ -24,8 +24,6 @@ This project is a React based web application that emulates the functionality of
 Feel free to explore the OLX Clone App , To Run follow below given instructions which is offcial documentation from React.
 
 
-
-
 ## Installation
 
 # Getting Started with Create React App
